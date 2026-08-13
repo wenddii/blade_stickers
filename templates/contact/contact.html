@@ -1,44 +1,44 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Contact — {{ site_settings.site_name }}{% endblock %}
+{% block title %}Contact & Custom Inquiries — {{ site_settings.site_name }}{% endblock %}
 
 {% block content %}
 
 <!-- ═══════════════════════════════════════════════════════════════════════
      CONTACT HERO
      ═══════════════════════════════════════════════════════════════════════ -->
-<section class="contact-hero">
-  <div class="container" style="position: relative; z-index: 1;">
-    <div class="tape-label tape-label--yellow" style="margin-bottom: 1.5rem;">Get In Touch</div>
-    <h1 class="manifesto-title" style="max-width: 700px; margin: 0 auto var(--space-md);">
-      Let's create<br>something <span class="t-rose">amazing</span>
+<section class="con-hero">
+  <div class="wrap" style="position: relative; z-index: 1;">
+    <div class="pill pill--coral" style="margin-bottom: 16px;">Let's Collaborate</div>
+    <h1 class="about-title">
+      Got an idea? Let's <span class="c-coral">print it</span>.
     </h1>
-    <p class="manifesto-subtitle">
-      Have a custom sticker order, poster inquiry, or business branding project? Contact us directly.
+    <p class="about-sub">
+      Have a custom sticker pack, bulk brand merch order, poster inquiry, or just want to say hi? We're ready.
     </p>
   </div>
 </section>
 
 
 <!-- ═══════════════════════════════════════════════════════════════════════
-     CONTACT FORM & CHANNELS — "Drop Us a Note"
+     CONTACT FORM & DIRECT REACHOUT CHANNELS
      ═══════════════════════════════════════════════════════════════════════ -->
-<section class="section">
-  <div class="container">
-    <div class="contact-grid">
+<section class="sect" style="padding-top: 0;">
+  <div class="wrap">
+    <div class="con-grid">
 
-      <!-- NOTEBOOK FORM -->
-      <div class="notebook-form js-reveal">
-        <h2>Send us a note</h2>
-        <p class="form-subtitle">Fill out the form and we'll get back to you immediately.</p>
+      <!-- Interactive Contact Form -->
+      <div class="form-card js-reveal">
+        <h2>Send a quick message</h2>
+        <p class="fsub">Fill in the fields below and we'll reply right away on WhatsApp or phone.</p>
 
-        <!-- Alert Container -->
-        <div id="contactFormAlert" style="display: none;" class="contact-alert"></div>
+        <!-- Dynamic Form Alert Message Container -->
+        <div id="contactFormAlert" style="display: none;" class="alert"></div>
 
         {% if messages %}
           {% for message in messages %}
-            <div class="contact-alert success-alert">
+            <div class="alert alert--ok">
               {{ message }}
             </div>
           {% endfor %}
@@ -53,7 +53,7 @@
           </div>
 
           <div>
-            <label>Phone Number</label>
+            <label>Phone Number (WhatsApp or Call)</label>
             {{ form.phone }}
           </div>
 
@@ -63,46 +63,46 @@
           </div>
 
           <div>
-            <label>Message or Custom Request</label>
+            <label>Message or Custom Order Details</label>
             {{ form.message }}
           </div>
 
-          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
-            Send Message →
+          <button type="submit" class="btn btn--fill" style="width: 100%; margin-top: 8px;">
+            Send Message 🚀
           </button>
         </form>
       </div>
 
-      <!-- DIRECT CHANNELS -->
-      <div class="channels-section js-reveal" style="transition-delay: 0.15s;">
-        <h2>Direct channels</h2>
+      <!-- Direct Instant Channels & Map Frame -->
+      <div class="js-reveal" style="transition-delay: 0.15s;">
+        <h2 class="ch-title">Instant contact</h2>
 
-        <a href="https://t.me/{{ site_settings.telegram_username }}" target="_blank" class="channel-card">
-          <div class="icon">✈️</div>
+        <a href="https://t.me/{{ site_settings.telegram_username }}" target="_blank" class="ch-card">
+          <span class="ch-icon">✈️</span>
           <div>
-            <div class="title">Telegram</div>
-            <div class="subtitle subtitle--cyan">@{{ site_settings.telegram_username }}</div>
+            <div class="ch-name">Telegram Channel & Admin</div>
+            <div class="ch-val ch-val--coral">@{{ site_settings.telegram_username }}</div>
           </div>
         </a>
 
-        <a href="https://wa.me/{{ site_settings.whatsapp_number }}" target="_blank" class="channel-card">
-          <div class="icon">💬</div>
+        <a href="https://wa.me/{{ site_settings.whatsapp_number }}" target="_blank" class="ch-card">
+          <span class="ch-icon">💬</span>
           <div>
-            <div class="title">WhatsApp</div>
-            <div class="subtitle subtitle--green">+{{ site_settings.whatsapp_number }}</div>
+            <div class="ch-name">WhatsApp Quick Inquiry</div>
+            <div class="ch-val ch-val--green">+{{ site_settings.whatsapp_number }}</div>
           </div>
         </a>
 
-        <div class="channel-card">
-          <div class="icon">📍</div>
+        <div class="ch-card">
+          <span class="ch-icon">📍</span>
           <div>
-            <div class="title">Studio Location</div>
-            <div class="subtitle subtitle--muted">{{ site_settings.address }}</div>
+            <div class="ch-name">Studio Location</div>
+            <div class="ch-val ch-val--muted">{{ site_settings.address }}</div>
           </div>
         </div>
 
-        <!-- Map -->
-        <div class="map-frame">
+        <!-- Embedded Map -->
+        <div class="map-fr">
           <iframe src="{{ site_settings.map_embed_url }}" allowfullscreen="" loading="lazy"></iframe>
         </div>
       </div>

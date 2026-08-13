@@ -1,29 +1,29 @@
 {% load static %}
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <!-- Brand Column -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <!-- Brand & Story -->
       <div>
-        <div class="footer-brand">
-          BLADE<span class="accent">STICKERS</span>
+        <div class="foot-brand">
+          BLADE<span class="acc">STICKERS</span>
         </div>
-        <p class="footer-desc">
-          High precision die-cut vinyl stickers, phone decals, anime art collections, Ethiopian musician posters, and custom wall art — crafted to be collected.
+        <p class="foot-desc">
+          Ethiopian culture brand & creative studio. High-definition waterproof vinyl decals, Ethiopian musician posters, anime collections, and custom room art.
         </p>
 
-        <div class="footer-social">
+        <div class="foot-social">
           {% if site_settings.telegram_username %}
-            <a href="https://t.me/{{ site_settings.telegram_username }}" target="_blank" class="footer-social-link" title="Telegram">
+            <a href="https://t.me/{{ site_settings.telegram_username }}" target="_blank" class="foot-slink" title="Telegram">
               ✈️
             </a>
           {% endif %}
           {% if site_settings.instagram_handle %}
-            <a href="https://instagram.com/{{ site_settings.instagram_handle|cut:'@' }}" target="_blank" class="footer-social-link" title="Instagram">
+            <a href="https://instagram.com/{{ site_settings.instagram_handle|cut:'@' }}" target="_blank" class="foot-slink" title="Instagram">
               📸
             </a>
           {% endif %}
           {% if site_settings.tiktok_handle %}
-            <a href="https://tiktok.com/{{ site_settings.tiktok_handle }}" target="_blank" class="footer-social-link" title="TikTok">
+            <a href="https://tiktok.com/{{ site_settings.tiktok_handle }}" target="_blank" class="foot-slink" title="TikTok">
               🎵
             </a>
           {% endif %}
@@ -32,43 +32,47 @@
 
       <!-- Quick Links -->
       <div>
-        <h4 class="footer-title">Navigate</h4>
-        <ul class="footer-links">
+        <h4 class="foot-title">Explore</h4>
+        <ul class="foot-links">
           <li><a href="{% url 'website:home' %}">Home</a></li>
-          <li><a href="{% url 'products:gallery' %}">Collection</a></li>
-          <li><a href="{% url 'website:about' %}">Our Story</a></li>
-          <li><a href="{% url 'contact:contact' %}">Contact</a></li>
+          <li><a href="{% url 'products:gallery' %}">Sticker Catalog</a></li>
+          <li><a href="{% url 'website:about' %}">About Studio</a></li>
+          <li><a href="{% url 'contact:contact' %}">Contact & Custom Orders</a></li>
         </ul>
       </div>
 
-      <!-- Categories -->
+      <!-- Popular Categories -->
       <div>
-        <h4 class="footer-title">Categories</h4>
-        <ul class="footer-links">
+        <h4 class="foot-title">Categories</h4>
+        <ul class="foot-links">
           <li><a href="{% url 'products:gallery' %}?category=laptop-stickers">Laptop Stickers</a></li>
-          <li><a href="{% url 'products:gallery' %}?category=phone-stickers">Phone Stickers</a></li>
-          <li><a href="{% url 'products:gallery' %}?category=anime-stickers">Anime Decals</a></li>
+          <li><a href="{% url 'products:gallery' %}?category=phone-stickers">Phone Decals</a></li>
+          <li><a href="{% url 'products:gallery' %}?category=anime-stickers">Anime & Gaming</a></li>
           <li><a href="{% url 'products:gallery' %}?category=ethiopian-musician-posters">Musician Posters</a></li>
           <li><a href="{% url 'products:gallery' %}?category=custom-sticker-printing">Custom Printing</a></li>
         </ul>
       </div>
 
-      <!-- Subscribe -->
+      <!-- Newsletter / VIP Club -->
       <div>
-        <h4 class="footer-title">Stay in the loop</h4>
-        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: var(--space-md); line-height: 1.5;">
-          New drops, limited prints, and studio updates — straight to your inbox.
+        <h4 class="foot-title">Join the Drop List</h4>
+        <p style="color: var(--ink-muted); font-size: 0.85rem; margin-bottom: 14px; line-height: 1.5;">
+          Be first to get limited sticker drops, collector posters, and studio news.
         </p>
-        <form onsubmit="event.preventDefault(); alert('Thank you for subscribing to Blade Stickers!');" class="footer-subscribe-form">
-          <input type="email" placeholder="your@email.com" required class="footer-subscribe-input">
-          <button type="submit" class="btn btn-primary" style="padding: 0.55rem 0.9rem; font-size: 0.75rem;">Join</button>
+        <form onsubmit="event.preventDefault(); alert('You\'re in! Welcome to Blade Stickers Drop Club.');" class="foot-sub-form">
+          <input type="email" placeholder="your@email.com" required class="foot-sub-in">
+          <button type="submit" class="btn btn--fill btn--sm">Join</button>
         </form>
       </div>
     </div>
 
-    <div class="footer-bottom">
+    <!-- Bottom Copyright & Creator Credit -->
+    <div class="foot-bottom">
       <div>{{ site_settings.footer_text }}</div>
-      <div class="crafted">Made with intent ✦</div>
+      <div class="foot-credit" style="font-size: 0.78rem; color: var(--ink-muted);">
+        Made by <strong style="color: var(--ink-soft); font-weight: 600;">Harbe Technologies</strong> • <a href="tel:+251905082039" style="color: inherit; text-decoration: none;">+251 905 082 039</a>
+      </div>
+      <div class="hand">Crafted with passion in Addis Ababa 🇪🇹</div>
     </div>
   </div>
 </footer>

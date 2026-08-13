@@ -9,85 +9,85 @@
 {% block content %}
 
 <!-- ═══════════════════════════════════════════════════════════════════════
-     PRODUCT DETAIL — "Gallery Exhibition Card"
+     PRODUCT DETAIL VIEW
      ═══════════════════════════════════════════════════════════════════════ -->
-<section class="detail-page">
-  <div class="container">
-    <!-- Breadcrumb -->
-    <div class="breadcrumb">
+<section class="det-page">
+  <div class="wrap">
+    <!-- Breadcrumbs -->
+    <div class="crumb">
       <a href="{% url 'website:home' %}">Home</a> &nbsp;/&nbsp;
       <a href="{% url 'products:gallery' %}">Collection</a> &nbsp;/&nbsp;
       <a href="{% url 'products:gallery' %}?category={{ product.category.slug }}">{{ product.category.name }}</a> &nbsp;/&nbsp;
-      <span class="current">{{ product.title }}</span>
+      <span class="cur">{{ product.title }}</span>
     </div>
 
-    <div class="detail-grid">
-      <!-- Image mounted on paper mat -->
+    <div class="det-grid">
+      <!-- Product Artwork Display & Gallery Strip -->
       <div class="js-reveal">
-        <div class="detail-image-mount">
+        <div class="det-img-wrap">
           {% if product.image %}
             <img id="mainProductImage" src="{{ product.image.url }}" alt="{{ product.title }}" class="main-img">
           {% else %}
-            <div style="aspect-ratio: 4/3; background: var(--paper-dark); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-family: var(--font-hand); font-size: 1.2rem;">
+            <div style="aspect-ratio: 1; display: flex; align-items: center; justify-content: center; color: var(--ink-muted); font-family: var(--font-display); font-weight: 700;">
               No Image Available
             </div>
           {% endif %}
         </div>
 
-        <!-- Thumbnail strip -->
+        <!-- Thumbnail Gallery Strip -->
         {% if product.gallery_images.exists %}
-          <div class="thumb-strip">
+          <div class="thumbs">
             {% if product.image %}
-              <img src="{{ product.image.url }}" onclick="document.getElementById('mainProductImage').src=this.src;" class="active" alt="Main image">
+              <img src="{{ product.image.url }}" onclick="document.getElementById('mainProductImage').src=this.src; document.querySelectorAll('.thumbs img').forEach(i=>i.classList.remove('active')); this.classList.add('active');" class="active" alt="Main preview">
             {% endif %}
 
             {% for gallery_img in product.gallery_images.all %}
-              <img src="{{ gallery_img.image.url }}" onclick="document.getElementById('mainProductImage').src=this.src; document.querySelectorAll('.thumb-strip img').forEach(i=>i.classList.remove('active')); this.classList.add('active');" alt="{{ gallery_img.caption|default:'Gallery image' }}">
+              <img src="{{ gallery_img.image.url }}" onclick="document.getElementById('mainProductImage').src=this.src; document.querySelectorAll('.thumbs img').forEach(i=>i.classList.remove('active')); this.classList.add('active');" alt="{{ gallery_img.caption|default:'Gallery view' }}">
             {% endfor %}
           </div>
         {% endif %}
       </div>
 
-      <!-- Product Details -->
-      <div class="detail-info js-reveal" style="transition-delay: 0.15s;">
-        <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: var(--space-md);">
-          <span class="detail-category-badge">{{ product.category.name }}</span>
+      <!-- Product Specifications & Quick Order Flow -->
+      <div class="det-info js-reveal" style="transition-delay: 0.1s;">
+        <div>
+          <span class="det-cat">{{ product.category.name }}</span>
           {% if product.is_available %}
-            <span class="detail-stock-badge">✔ In Stock</span>
+            <span class="det-stock">✔ In Stock & Ready to Print</span>
           {% endif %}
         </div>
 
-        <h1 class="detail-title">
+        <h1 class="det-title">
           {{ product.title }}
         </h1>
 
-        <div class="detail-price">
+        <div class="det-price">
           {% if product.price %}
             ${{ product.price }}
           {% else %}
-            Custom Quote
+            Custom Quote / Pricing on Request
           {% endif %}
         </div>
 
-        <div class="detail-desc-box">
-          <h3>Details & Features</h3>
+        <div class="det-desc">
+          <h3>Material & Finish Details</h3>
           <p>{{ product.description|linebreaks }}</p>
         </div>
 
-        <!-- Order buttons -->
-        <div class="detail-order-section">
-          <h3>↓ Order or inquire directly</h3>
-          <div class="detail-order-btns">
-            <a href="https://t.me/{{ site_settings.telegram_username }}?text=Hi%20Blade%20Stickers!%20I%20want%20to%20order:%20{{ product.title|urlencode }}" target="_blank" class="btn btn-telegram">
-              ✈️ Order via Telegram
+        <!-- Direct Social Order Buttons -->
+        <div class="det-order">
+          <h3>Direct Order Channels:</h3>
+          <div class="det-btns">
+            <a href="https://t.me/{{ site_settings.telegram_username }}?text=Hi%20Blade%20Stickers!%20I%20want%20to%20order:%20{{ product.title|urlencode }}" target="_blank" class="btn btn--tg">
+              ✈️ Order on Telegram
             </a>
 
-            <a href="https://wa.me/{{ site_settings.whatsapp_number }}?text=Hi%20Blade%20Stickers!%20I%20want%20to%20order:%20{{ product.title|urlencode }}" target="_blank" class="btn btn-whatsapp">
+            <a href="https://wa.me/{{ site_settings.whatsapp_number }}?text=Hi%20Blade%20Stickers!%20I%20want%20to%20order:%20{{ product.title|urlencode }}" target="_blank" class="btn btn--wa">
               💬 Message on WhatsApp
             </a>
 
-            <a href="tel:{{ site_settings.phone_number }}" class="btn btn-call">
-              📞 {{ site_settings.phone_number }}
+            <a href="tel:{{ site_settings.phone_number }}" class="btn btn--call">
+              📞 Direct Call: {{ site_settings.phone_number }}
             </a>
           </div>
         </div>
@@ -96,16 +96,18 @@
   </div>
 </section>
 
-<!-- RELATED PRODUCTS -->
+<!-- ═══════════════════════════════════════════════════════════════════════
+     RELATED DESIGNS
+     ═══════════════════════════════════════════════════════════════════════ -->
 {% if related_products %}
-<section class="related-section">
-  <div class="container">
-    <div class="section-header js-reveal">
-      <span class="section-tag">Similar items</span>
-      <h2 class="section-title">More from<br>{{ product.category.name }}</h2>
+<section class="rel-sect">
+  <div class="wrap">
+    <div class="sh js-reveal">
+      <span class="sh__tag c-coral">More In This Category</span>
+      <h2 class="sh__title">Similar in {{ product.category.name }}</h2>
     </div>
 
-    <div class="products-grid js-stagger">
+    <div class="pgrid js-stagger">
       {% for rel in related_products %}
         {% include 'includes/product_card.html' with product=rel %}
       {% endfor %}

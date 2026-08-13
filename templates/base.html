@@ -6,15 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Primary Meta Tags -->
-  <title>{% block title %}{{ site_settings.site_name }} - Premium Custom Stickers & Wall Art Posters{% endblock %}</title>
-  <meta name="title" content="{% block meta_title %}{{ site_settings.site_name }} | Custom Stickers, Anime Decals & Ethiopian Artist Posters{% endblock %}">
+  <title>{% block title %}{{ site_settings.site_name }} - Vibrant Culture Stickers & Art Posters{% endblock %}</title>
+  <meta name="title" content="{% block meta_title %}{{ site_settings.site_name }} | Custom Stickers, Anime Decals & Ethiopian Legend Posters{% endblock %}">
   <meta name="description" content="{% block meta_description %}{{ site_settings.hero_subtitle }}{% endblock %}">
   <meta name="keywords" content="stickers, laptop stickers, phone stickers, anime stickers, Ethiopian musician posters, wall posters, custom sticker printing, Addis Ababa, Blade Stickers">
   <meta name="robots" content="index, follow">
 
   <!-- OpenGraph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="{% block og_title %}{{ site_settings.site_name }} - High Impact Custom Stickers & Wall Art{% endblock %}">
+  <meta property="og:title" content="{% block og_title %}{{ site_settings.site_name }} - Vibrant Culture Stickers & Art Posters{% endblock %}">
   <meta property="og:description" content="{% block og_description %}{{ site_settings.hero_subtitle }}{% endblock %}">
   <meta property="og:image" content="{% block og_image %}{% if site_settings.logo %}{{ site_settings.logo.url }}{% else %}{% static 'images/og-share.jpg' %}{% endif %}{% endblock %}">
 
@@ -47,22 +47,22 @@
     <div class="modal-box">
       <button class="modal-close" id="modalCloseBtn" aria-label="Close modal">&times;</button>
       <div class="modal-image-wrap">
-        <img src="" id="modalImg" alt="Product image preview">
+        <img src="" id="modalImg" alt="Product preview">
       </div>
       <div class="modal-info">
-        <span id="modalCategory" class="product-category">Category</span>
+        <span id="modalCategory" class="pill pill--coral" style="align-self: flex-start; margin-bottom: 8px;">Category</span>
         <h3 id="modalTitle" class="modal-title">Product Title</h3>
-        <div id="modalPrice" class="modal-price">Price</div>
+        <div id="modalPrice" class="modal-price">$0.00</div>
         <p id="modalDesc" class="modal-desc">Description text</p>
 
         <div class="modal-actions">
-          <a href="#" id="modalTelegramLink" target="_blank" class="btn btn-telegram">
-            Order on Telegram
+          <a href="#" id="modalTelegramLink" target="_blank" class="btn btn--tg">
+            ✈️ Order on Telegram
           </a>
-          <a href="#" id="modalWhatsAppLink" target="_blank" class="btn btn-whatsapp">
-            Message on WhatsApp
+          <a href="#" id="modalWhatsAppLink" target="_blank" class="btn btn--wa">
+            💬 Message on WhatsApp
           </a>
-          <a href="#" id="modalDetailLink" class="btn btn-outline" style="text-align: center;">
+          <a href="#" id="modalDetailLink" class="btn btn--ghost" style="text-align: center;">
             View Full Page →
           </a>
         </div>

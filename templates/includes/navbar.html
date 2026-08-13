@@ -1,0 +1,38 @@
+{% load static %}
+<header class="navbar" id="mainNavbar">
+  <div class="container navbar-inner">
+    <a href="{% url 'website:home' %}" class="brand-logo">
+      {% if site_settings.logo %}
+        <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.site_name }}" style="height: 40px;">
+      {% else %}
+        <div class="blade-icon">⚡</div>
+        <span>BLADE<span class="t-accent">STICKERS</span></span>
+      {% endif %}
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li>
+        <a href="{% url 'website:home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+      </li>
+      <li>
+        <a href="{% url 'products:gallery' %}" class="nav-link {% if request.resolver_match.url_name == 'gallery' or request.resolver_match.url_name == 'product_detail' %}active{% endif %}">Collection</a>
+      </li>
+      <li>
+        <a href="{% url 'website:about' %}" class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a>
+      </li>
+      <li>
+        <a href="{% url 'contact:contact' %}" class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a>
+      </li>
+    </ul>
+
+    <div style="display: flex; align-items: center; gap: 0.8rem;">
+      <a href="https://wa.me/{{ site_settings.whatsapp_number }}?text=Hi%20Blade%20Stickers!%20I%20want%20to%20place%20an%20order" target="_blank" class="btn btn-primary" style="padding: 0.55rem 1.2rem; font-size: 0.8rem;">
+        Order Now
+      </a>
+
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
+        ☰
+      </button>
+    </div>
+  </div>
+</header>

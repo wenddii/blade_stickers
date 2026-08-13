@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>{% block title %}{{ site_settings.site_name }} - Premium Custom Stickers & Wall Art Posters{% endblock %}</title>
+  <meta name="title" content="{% block meta_title %}{{ site_settings.site_name }} | Custom Stickers, Anime Decals & Ethiopian Artist Posters{% endblock %}">
+  <meta name="description" content="{% block meta_description %}{{ site_settings.hero_subtitle }}{% endblock %}">
+  <meta name="keywords" content="stickers, laptop stickers, phone stickers, anime stickers, Ethiopian musician posters, wall posters, custom sticker printing, Addis Ababa, Blade Stickers">
+  <meta name="robots" content="index, follow">
+
+  <!-- OpenGraph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{% block og_title %}{{ site_settings.site_name }} - High Impact Custom Stickers & Wall Art{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}{{ site_settings.hero_subtitle }}{% endblock %}">
+  <meta property="og:image" content="{% block og_image %}{% if site_settings.logo %}{{ site_settings.logo.url }}{% else %}{% static 'images/og-share.jpg' %}{% endif %}{% endblock %}">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="{% block twitter_title %}{{ site_settings.site_name }} - Custom Stickers & Posters{% endblock %}">
+  <meta property="twitter:description" content="{% block twitter_description %}{{ site_settings.hero_subtitle }}{% endblock %}">
+
+  <!-- Favicon -->
+  {% if site_settings.favicon %}
+    <link rel="icon" href="{{ site_settings.favicon.url }}" type="image/x-icon">
+  {% endif %}
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+  <!-- Navigation -->
+  {% include 'includes/navbar.html' %}
+
+  <!-- Main View Content -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Quick View Modal / Lightbox -->
+  <div class="modal-backdrop" id="productModal" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <button class="modal-close" id="modalCloseBtn" aria-label="Close modal">&times;</button>
+      <div class="modal-image-wrap">
+        <img src="" id="modalImg" alt="Product image preview">
+      </div>
+      <div class="modal-info">
+        <span id="modalCategory" class="product-category">Category</span>
+        <h3 id="modalTitle" class="modal-title">Product Title</h3>
+        <div id="modalPrice" class="modal-price">Price</div>
+        <p id="modalDesc" class="modal-desc">Description text</p>
+
+        <div class="modal-actions">
+          <a href="#" id="modalTelegramLink" target="_blank" class="btn btn-telegram">
+            Order on Telegram
+          </a>
+          <a href="#" id="modalWhatsAppLink" target="_blank" class="btn btn-whatsapp">
+            Message on WhatsApp
+          </a>
+          <a href="#" id="modalDetailLink" class="btn btn-outline" style="text-align: center;">
+            View Full Page →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Action Buttons -->
+  {% include 'includes/floating_buttons.html' %}
+
+  <!-- Footer -->
+  {% include 'includes/footer.html' %}
+
+  <!-- Main JavaScript Engine -->
+  <script src="{% static 'js/main.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

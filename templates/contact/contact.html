@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact — {{ site_settings.site_name }}{% endblock %}
+
+{% block content %}
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     CONTACT HERO
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="contact-hero">
+  <div class="container" style="position: relative; z-index: 1;">
+    <div class="tape-label tape-label--yellow" style="margin-bottom: 1.5rem;">Get In Touch</div>
+    <h1 class="manifesto-title" style="max-width: 700px; margin: 0 auto var(--space-md);">
+      Let's create<br>something <span class="t-rose">amazing</span>
+    </h1>
+    <p class="manifesto-subtitle">
+      Have a custom sticker order, poster inquiry, or business branding project? Contact us directly.
+    </p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     CONTACT FORM & CHANNELS — "Drop Us a Note"
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- NOTEBOOK FORM -->
+      <div class="notebook-form js-reveal">
+        <h2>Send us a note</h2>
+        <p class="form-subtitle">Fill out the form and we'll get back to you immediately.</p>
+
+        <!-- Alert Container -->
+        <div id="contactFormAlert" style="display: none;" class="contact-alert"></div>
+
+        {% if messages %}
+          {% for message in messages %}
+            <div class="contact-alert success-alert">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        <form id="contactForm" action="{% url 'contact:contact' %}" method="POST">
+          {% csrf_token %}
+
+          <div>
+            <label>Your Name</label>
+            {{ form.name }}
+          </div>
+
+          <div>
+            <label>Phone Number</label>
+            {{ form.phone }}
+          </div>
+
+          <div>
+            <label>Email Address</label>
+            {{ form.email }}
+          </div>
+
+          <div>
+            <label>Message or Custom Request</label>
+            {{ form.message }}
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
+            Send Message →
+          </button>
+        </form>
+      </div>
+
+      <!-- DIRECT CHANNELS -->
+      <div class="channels-section js-reveal" style="transition-delay: 0.15s;">
+        <h2>Direct channels</h2>
+
+        <a href="https://t.me/{{ site_settings.telegram_username }}" target="_blank" class="channel-card">
+          <div class="icon">✈️</div>
+          <div>
+            <div class="title">Telegram</div>
+            <div class="subtitle subtitle--cyan">@{{ site_settings.telegram_username }}</div>
+          </div>
+        </a>
+
+        <a href="https://wa.me/{{ site_settings.whatsapp_number }}" target="_blank" class="channel-card">
+          <div class="icon">💬</div>
+          <div>
+            <div class="title">WhatsApp</div>
+            <div class="subtitle subtitle--green">+{{ site_settings.whatsapp_number }}</div>
+          </div>
+        </a>
+
+        <div class="channel-card">
+          <div class="icon">📍</div>
+          <div>
+            <div class="title">Studio Location</div>
+            <div class="subtitle subtitle--muted">{{ site_settings.address }}</div>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="map-frame">
+          <iframe src="{{ site_settings.map_embed_url }}" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

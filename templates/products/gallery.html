@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Collection — {{ site_settings.site_name }}{% endblock %}
+
+{% block content %}
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     GALLERY HEADER — "The Archive Room"
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="gallery-header">
+  <div class="container">
+    <div class="tape-label" style="margin-bottom: 1.5rem;">Catalog Showcase</div>
+    <h1 class="gallery-title">
+      The full<br>collection
+    </h1>
+    <p class="section-subtitle" style="margin: 0 auto var(--space-lg); text-align: center;">
+      Filter by category or search for laptop decals, anime art, or Ethiopian music posters.
+    </p>
+
+    <!-- SEARCH BAR -->
+    <form action="{% url 'products:gallery' %}" method="GET" class="search-wrapper">
+      <span class="search-icon">🔍</span>
+      <input type="text" name="q" value="{{ search_query }}" placeholder="Search stickers, posters, or musicians..." class="search-input">
+      {% if selected_category and selected_category != 'all' %}
+        <input type="hidden" name="category" value="{{ selected_category }}">
+      {% endif %}
+    </form>
+
+    <!-- CATEGORY FILTER TABS — tape labels -->
+    <div class="filter-tabs">
+      <a href="{% url 'products:gallery' %}{% if search_query %}?q={{ search_query }}{% endif %}" class="filter-btn {% if selected_category == 'all' or not selected_category %}active{% endif %}">
+        All Items
+      </a>
+      {% for cat in categories %}
+        <a href="{% url 'products:gallery' %}?category={{ cat.slug }}{% if search_query %}&q={{ search_query }}{% endif %}" class="filter-btn {% if selected_category == cat.slug %}active{% endif %}">
+          {{ cat.name }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     PRODUCTS GRID
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    {% if search_query %}
+      <div class="search-results-label">
+        Showing results for: <span class="query">"{{ search_query }}"</span>
+        <a href="{% url 'products:gallery' %}" style="margin-left: 1rem; text-decoration: underline; font-size: 0.85rem; color: var(--text-secondary);">Clear</a>
+      </div>
+    {% endif %}
+
+    <div class="products-grid js-stagger">
+      {% for product in products %}
+        {% include 'includes/product_card.html' with product=product %}
+      {% empty %}
+        <div class="empty-state" style="grid-column: 1/-1;">
+          <div class="icon">🔍</div>
+          <h3>No items found</h3>
+          <p>Try adjusting your category filter or search keywords.</p>
+          <a href="{% url 'products:gallery' %}" class="btn btn-paper">Reset Filters</a>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- PAGINATION -->
+    {% if is_paginated %}
+      <div class="pagination">
+        {% if page_obj.has_previous %}
+          <a href="?page={{ page_obj.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}" class="btn btn-outline">
+            ← Previous
+          </a>
+        {% endif %}
+
+        <span class="page-info">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}" class="btn btn-outline">
+            Next →
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}

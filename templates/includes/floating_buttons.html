@@ -1,0 +1,20 @@
+<div class="floating-actions">
+  <!-- Back to top -->
+  <button class="float-btn float-top" id="backToTopBtn" title="Back to top" style="opacity: 0; pointer-events: none;">
+    ↑
+  </button>
+
+  <!-- Telegram float -->
+  {% if site_settings.telegram_username %}
+    <a href="https://t.me/{{ site_settings.telegram_username }}" target="_blank" class="float-btn float-telegram" title="Chat on Telegram">
+      ✈️
+    </a>
+  {% endif %}
+
+  <!-- WhatsApp float -->
+  {% if site_settings.whatsapp_number %}
+    <a href="https://wa.me/{{ site_settings.whatsapp_number }}?text=Hi%20Blade%20Stickers!%20I%20want%20to%20inquire%20about%20a%20sticker%20or%20poster." target="_blank" class="float-btn float-whatsapp" title="Message on WhatsApp">
+      💬
+    </a>
+  {% endif %}
+</div>

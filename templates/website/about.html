@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About — {{ site_settings.site_name }}{% endblock %}
+
+{% block content %}
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     "THE MANIFESTO" — Opening Statement
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="manifesto-hero">
+  <div class="container" style="position: relative; z-index: 1;">
+    <div class="tape-label" style="margin-bottom: 1.5rem;">Craftsmanship & Passion</div>
+    <h1 class="manifesto-title">
+      The story<br>behind <span class="t-accent">Blade</span><br>Stickers
+    </h1>
+    <p class="manifesto-subtitle">
+      We transform laptops, phones, gaming setups, and walls into vibrant personal expressions through high-definition vinyl printing.
+    </p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     STORY & MISSION — Editorial magazine spread
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="story-spread">
+      <div class="story-text js-reveal">
+        <h2>Our Craft &<br>Quality Philosophy</h2>
+        <p>{{ site_settings.about_story }}</p>
+
+        <h3>↓ Our Mission</h3>
+        <p>{{ site_settings.about_mission }}</p>
+      </div>
+
+      <div class="js-reveal" style="transition-delay: 0.15s;">
+        <div class="features-card">
+          <h3>Why choose Blade Stickers?</h3>
+
+          <div class="feature-item">
+            <div class="icon">🛡️</div>
+            <div>
+              <h4>100% Waterproof Vinyl</h4>
+              <p>Laminated against rain, water spills, and intense daily laptop use.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="icon">☀️</div>
+            <div>
+              <h4>UV & Scratch Protection</h4>
+              <p>Colors stay vibrant without fading under direct sun or friction.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="icon">✂️</div>
+            <div>
+              <h4>Precision Laser Die-Cut</h4>
+              <p>Clean border cuts tailored exactly around the art edges.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="icon">🖼️</div>
+            <div>
+              <h4>Heavyweight Poster Paper</h4>
+              <p>300GSM premium art paper for Ethiopian music & international wall art.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     STATS
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="section" style="background: var(--bg-surface); border-top: 1px dashed var(--border-tape); border-bottom: 1px dashed var(--border-tape);">
+  <div class="container">
+    <div class="stats-strip js-reveal">
+      <div class="stat-item">
+        <div class="stat-number js-counter" data-target="{{ site_settings.stats_stickers_count }}">0</div>
+        <div class="stat-label">Stickers delivered</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number js-counter" data-target="{{ site_settings.stats_customers_count }}">0</div>
+        <div class="stat-label">Happy collectors</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number js-counter" data-target="{{ site_settings.stats_designs_count }}">0</div>
+        <div class="stat-label">Catalog designs</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">{{ site_settings.stats_rating }}</div>
+        <div class="stat-label">Rating score</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     CTA
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="cta-section">
+  <div class="container js-reveal">
+    <h2 class="cta-title">Ready to upgrade<br>your setup?</h2>
+    <p class="section-subtitle" style="margin: 0 auto var(--space-lg); text-align: center;">
+      Explore our full collection or send us your custom designs for printing.
+    </p>
+
+    <div class="cta-buttons">
+      <a href="{% url 'products:gallery' %}" class="btn btn-primary">Browse Collection</a>
+      <a href="{% url 'contact:contact' %}" class="btn btn-outline">Order Custom Design</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

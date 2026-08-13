@@ -1,0 +1,291 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ site_settings.site_name }} — Culture Stickers & Art Posters{% endblock %}
+
+{% block content %}
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     SECTION 1: "THE DESK" — Opening Experience
+     Not a hero. A creative workspace. Stickers scattered at angles.
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="hero-desk">
+  <div class="container">
+    <div class="hero-layout">
+      <!-- Content side -->
+      <div class="hero-content js-reveal">
+        <div class="tape-label tape-label--yellow" style="margin-bottom: 1.5rem;">
+          ★ Premium Vinyl & Poster Prints
+        </div>
+
+        <h1 class="hero-title">
+          {{ site_settings.hero_title }}
+        </h1>
+
+        <p class="hero-subtitle">
+          {{ site_settings.hero_subtitle }}
+        </p>
+
+        <div class="hero-ctas">
+          <a href="{% url 'products:gallery' %}" class="btn btn-primary">
+            View Collection →
+          </a>
+          <a href="{% url 'contact:contact' %}" class="btn btn-outline">
+            Contact Us
+          </a>
+        </div>
+
+        <div class="hero-annotation" style="margin-top: 2rem;">
+          waterproof, UV-resistant, die-cut
+        </div>
+      </div>
+
+      <!-- Visual side — scattered stickers -->
+      <div class="hero-visual js-reveal" style="transition-delay: 0.2s;">
+        <div class="hero-sticker hero-sticker--main">
+          <img src="https://images.unsplash.com/photo-1572375992501-4b0892d50c69?q=80&w=800&auto=format&fit=crop" alt="Blade Stickers Collection Showcase">
+        </div>
+
+        {% if featured_stickers.0 and featured_stickers.0.image %}
+          <div class="hero-sticker hero-sticker--sm1">
+            <img src="{{ featured_stickers.0.image.url }}" alt="{{ featured_stickers.0.title }}">
+          </div>
+        {% else %}
+          <div class="hero-sticker hero-sticker--sm1">
+            <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=400&auto=format&fit=crop" alt="Sticker preview">
+          </div>
+        {% endif %}
+
+        {% if featured_stickers.1 and featured_stickers.1.image %}
+          <div class="hero-sticker hero-sticker--sm2">
+            <img src="{{ featured_stickers.1.image.url }}" alt="{{ featured_stickers.1.title }}">
+          </div>
+        {% else %}
+          <div class="hero-sticker hero-sticker--sm2">
+            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=400&auto=format&fit=crop" alt="Poster preview">
+          </div>
+        {% endif %}
+
+        <div class="hero-float-tag">
+          100% Waterproof ✦ UV Protected
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     SECTION 2: "THE COLLECTION WALL" — Categories as pinned zines
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="section categories-section">
+  <div class="container">
+    <div class="section-header js-reveal">
+      <span class="section-tag">↓ Explore the collection</span>
+      <h2 class="section-title">What are you<br>looking for?</h2>
+      <p class="section-subtitle">Precision die-cut stickers and high resolution art prints for your laptops, phones, and walls.</p>
+    </div>
+
+    <div class="categories-grid js-stagger">
+      {% for cat in categories %}
+        <a href="{% url 'products:gallery' %}?category={{ cat.slug }}" class="category-card js-reveal">
+          <div class="category-icon">
+            {% if 'laptop' in cat.slug %}💻{% elif 'phone' in cat.slug %}📱{% elif 'anime' in cat.slug %}🎨{% elif 'ethiopian' in cat.slug %}🎵{% elif 'artist' in cat.slug %}🎸{% elif 'custom' in cat.slug %}✂️{% else %}🖼️{% endif %}
+          </div>
+          <h3 class="category-name">{{ cat.name }}</h3>
+          <p>{{ cat.description|truncatewords:10 }}</p>
+        </a>
+      {% empty %}
+        <p style="text-align: center; color: var(--text-muted); grid-column: 1/-1; font-family: var(--font-hand); font-size: 1.1rem;">Categories will appear here once added in Django Admin.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     SECTION 3: "FEATURED DROPS" — Sticker-bomb layout
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="section" style="border-top: 1px dashed var(--border-tape);">
+  <div class="container">
+    <div class="section-header js-reveal">
+      <span class="section-tag">★ Featured drops</span>
+      <h2 class="section-title">Most wanted<br>this season</h2>
+      <p class="section-subtitle">Top-rated laptop, phone, and anime stickers — crafted for durability and self-expression.</p>
+    </div>
+
+    <div class="products-grid products-grid--bomb js-stagger">
+      {% for product in featured_stickers %}
+        {% include 'includes/product_card.html' with product=product %}
+      {% empty %}
+        <p style="text-align: center; color: var(--text-muted); grid-column: 1/-1; font-family: var(--font-hand); font-size: 1.1rem;">No featured products yet. Add products in Django Admin!</p>
+      {% endfor %}
+    </div>
+
+    <div style="text-align: center; margin-top: 3rem;">
+      <a href="{% url 'products:gallery' %}" class="btn btn-outline">
+        Browse Full Collection →
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     SECTION 4: "THE POSTER WALL" — Editorial layout
+     Large hero image + stacked posters beside it.
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="section" style="background: var(--bg-surface); border-top: 1px dashed var(--border-tape); border-bottom: 1px dashed var(--border-tape);">
+  <div class="container">
+    <div class="section-header js-reveal">
+      <span class="section-tag">↓ Ethiopian & International Legacy Art</span>
+      <h2 class="section-title">The poster<br>wall</h2>
+      <p class="section-subtitle">Iconic musicians and aesthetic art on 300GSM heavy matte poster prints.</p>
+    </div>
+
+    <div class="poster-wall">
+      {% for product in featured_posters %}
+        {% if forloop.first %}
+          <!-- Hero poster -->
+          <div class="poster-hero-frame js-reveal">
+            {% if product.image %}
+              <img src="{{ product.image.url }}" alt="{{ product.title }}">
+            {% endif %}
+            <div class="poster-caption">{{ product.title }}</div>
+          </div>
+
+          <!-- Stack container for remaining posters -->
+          <div class="poster-stack">
+        {% else %}
+          <a href="{{ product.get_absolute_url }}" class="poster-small-frame js-reveal" style="transition-delay: {{ forloop.counter0 }}00ms;">
+            {% if product.image %}
+              <img src="{{ product.image.url }}" alt="{{ product.title }}">
+            {% endif %}
+            <div class="poster-small-info">
+              <h3>{{ product.title }}</h3>
+              <span class="price">
+                {% if product.price %}${{ product.price }}{% else %}Custom Quote{% endif %}
+              </span>
+            </div>
+          </a>
+        {% endif %}
+
+        {% if forloop.last and not forloop.first %}
+          </div><!-- close .poster-stack -->
+        {% endif %}
+      {% empty %}
+        <p style="text-align: center; color: var(--text-muted); grid-column: 1/-1; font-family: var(--font-hand); font-size: 1.1rem;">Posters will be displayed here.</p>
+      {% endfor %}
+
+      {% if featured_posters|length == 1 %}
+        </div><!-- close .poster-stack if only 1 poster -->
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     SECTION 5: "NUMBERS THAT MATTER" — Giant numerals with annotations
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header section-header--center js-reveal">
+      <span class="section-tag">The studio in numbers</span>
+    </div>
+
+    <div class="stats-strip js-reveal">
+      <div class="stat-item">
+        <div class="stat-number js-counter" data-target="{{ site_settings.stats_stickers_count }}">0</div>
+        <div class="stat-label">Stickers printed & delivered</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number js-counter" data-target="{{ site_settings.stats_customers_count }}">0</div>
+        <div class="stat-label">Happy collectors</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number js-counter" data-target="{{ site_settings.stats_designs_count }}">0</div>
+        <div class="stat-label">Custom catalog designs</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">{{ site_settings.stats_rating }}</div>
+        <div class="stat-label">Satisfaction rating</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     SECTION 6: "VOICES" — Testimonials as handwritten notes on torn paper
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="section" style="border-top: 1px dashed var(--border-tape);">
+  <div class="container">
+    <div class="section-header js-reveal">
+      <span class="section-tag">↓ What people are saying</span>
+      <h2 class="section-title">Voices from<br>the community</h2>
+      <p class="section-subtitle">Real feedback from gamers, music lovers, and designers who choose Blade Stickers.</p>
+    </div>
+
+    <div class="testimonials-grid js-stagger">
+      {% for t in testimonials %}
+        <div class="testimonial-card js-reveal">
+          <div>
+            <div class="testimonial-stars">
+              {% if t.rating == 5 %}★★★★★{% elif t.rating == 4 %}★★★★☆{% else %}★★★☆☆{% endif %}
+            </div>
+            <p class="testimonial-message">
+              "{{ t.message }}"
+            </p>
+          </div>
+          <div class="testimonial-author">
+            {% if t.image %}
+              <img src="{{ t.image.url }}" alt="{{ t.customer_name }}" class="testimonial-avatar">
+            {% else %}
+              <div class="testimonial-avatar-placeholder">
+                {{ t.customer_name|slice:":1" }}
+              </div>
+            {% endif %}
+            <div>
+              <div class="testimonial-name">{{ t.customer_name }}</div>
+              <div class="testimonial-role">{{ t.role }}</div>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p style="text-align: center; color: var(--text-muted); grid-column: 1/-1; font-family: var(--font-hand); font-size: 1.1rem;">Testimonials will appear here once configured in Django Admin.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     SECTION 7: "THE BOARD" — Community polaroids on a corkboard
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="section" style="background: var(--bg-surface); border-top: 1px dashed var(--border-tape);">
+  <div class="container">
+    <div class="section-header section-header--center js-reveal">
+      <span class="section-tag">↓ Follow the community</span>
+      <h2 class="section-title">The board</h2>
+      <p class="section-subtitle">Tag <span class="t-accent">{{ site_settings.instagram_handle }}</span> on social media to be featured.</p>
+    </div>
+
+    <div class="polaroids-grid js-stagger">
+      <div class="polaroid js-reveal">
+        <img src="https://images.unsplash.com/photo-1572375992501-4b0892d50c69?q=80&w=500&auto=format&fit=crop" alt="Community sticker showcase">
+      </div>
+      <div class="polaroid js-reveal">
+        <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=500&auto=format&fit=crop" alt="Community sticker showcase">
+      </div>
+      <div class="polaroid js-reveal">
+        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=500&auto=format&fit=crop" alt="Community poster showcase">
+      </div>
+      <div class="polaroid js-reveal">
+        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=500&auto=format&fit=crop" alt="Community poster showcase">
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

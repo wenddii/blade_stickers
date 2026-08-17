@@ -82,6 +82,14 @@ function initScrollReveal() {
   const elements = document.querySelectorAll('.js-reveal');
   if (!elements.length) return;
 
+  // Immediately reveal any element already in or near viewport to prevent blank spaces
+  elements.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight + 100) {
+      el.classList.add('revealed');
+    }
+  });
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -90,11 +98,15 @@ function initScrollReveal() {
       }
     });
   }, {
-    threshold: 0.08,
-    rootMargin: '0px 0px -30px 0px'
+    threshold: 0.02,
+    rootMargin: '0px 0px 100px 0px'
   });
 
-  elements.forEach(el => observer.observe(el));
+  elements.forEach(el => {
+    if (!el.classList.contains('revealed')) {
+      observer.observe(el);
+    }
+  });
 }
 
 

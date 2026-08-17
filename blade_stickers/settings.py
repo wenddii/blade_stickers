@@ -175,13 +175,16 @@ STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 STATICFILES_STORAGE = (
-    "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    "whitenoise.storage.CompressedStaticFilesStorage"
 )
+
+WHITENOISE_USE_FINDERS = True
 
 STATICFILES_DIRS = []
 
 if (BASE_DIR / "static").exists():
     STATICFILES_DIRS.append(BASE_DIR / "static")
+
 
 # ------------------------------------------------------------------------------
 # Media (Cloudinary)
